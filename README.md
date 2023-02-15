@@ -21,7 +21,7 @@ metered internet or have a slow connection.
 
 TODO: Add details on how to execute a powershell script!
 
-* <a id="raw-url" href="https://raw.githubusercontent.com/GeoMaciolek/steamvr-clean-reinstall/main/steamvr-clean-reinstall.ps1" download>Download steamvr-clean-reinstall.ps1</a>
+* [Download steamvr-clean-reinstall.ps1](https://github.com/GeoMaciolek/steamvr-clean-reinstall/releases/download/0.1/steamvr-clean-reinstall.ps1)
 * Run the above
 
 ## How It Works
