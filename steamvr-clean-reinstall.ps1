@@ -1,4 +1,20 @@
-﻿Param(
+﻿<#
+.SYNOPSIS
+    Clean reinstall of SteamVR
+.DESCRIPTION
+    This script uninstalls SteamVR, deletes various files, and reinstalls SteamVR
+.NOTES
+    Use this at your own risk!
+.LINK
+    https://github.com/GeoMaciolek/steamvr-clean-reinstall
+.EXAMPLE
+    .\steamvr-clean-reinstall.ps1
+    Runs with all typical defaults.
+.EXAMPLE
+    .\steamvr-clean-reinstall.ps1 -SteamVRInstallPath 'C:\SomeOtherSteamVRPath'
+#>
+
+Param(
     [string]
     $SteamPath = ${env:ProgramFiles(x86)} + '\Steam',
 	[array]
@@ -82,7 +98,7 @@ function Remove-ConfigFiles {
 
 If ($InteractivePrompts) {
     Write-Warning "THIS SCRIPT DELETES FILES! BE CAREFUL!"
-    $input = Read-Host -Prompt @"
+    Read-Host -Prompt @"
 ### WARNING! ###
 This script is about to delete everything in:
 $SteamVRInstallPath
