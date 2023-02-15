@@ -10,7 +10,7 @@ This tool helps you do a clean reinstall of SteamVR
 
 TODO: Add details on how to execute a powershell script!
 
-* Download <steamvr-clean-reinstall.ps1>
+* Download [steamvr-clean-reinstall.ps1](https://raw.githubusercontent.com/GeoMaciolek/steamvr-clean-reinstall/main/steamvr-clean-reinstall.ps1)
 * Run the above
 
 ## Credits
