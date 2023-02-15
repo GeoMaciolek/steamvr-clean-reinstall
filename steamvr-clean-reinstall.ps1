@@ -9,9 +9,13 @@
     [int32]
     $SteamVRAppId = 250820,
     [string]
+    $SteamVRInstallPath = "$SteamPath\Steamapps\common\SteamVR", # Assumption here!
+    [string]
     $SteamExePath = "$SteamPath\steam.exe",
     [boolean]
-	$TestMode = $true
+    $InteractivePrompts = $true, # Ask user if we really want to do this first (and pause at end)
+    [boolean]
+	$TestMode = $false
 )
 
 function Remove-SteamApp {
@@ -26,10 +30,40 @@ function Remove-SteamApp {
     Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://uninstall/$SteamAppId" @SplatParams
 }
 
+function Add-SteamApp {
+    Param(
+        [string] $SteamExePath,
+        [int32] $SteamAppId,
+        [boolean] $WhatIf = $false
+    )
+    $SplatParams = @{}
+    $SplatParams.WhatIf = $WhatIf
+    # Launch steam.exe, telling it to uninstall the requested app
+    Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://install/$SteamAppId" @SplatParams
+}
+
+function Remove-SteamAppFolder {
+    Param(
+        [string] $SteamAppFolder,
+        [boolean] $WhatIf = $false
+    )
+    if ($WhatIf) {
+        Write-Output "We would be removing everything in $SteamAppFolder!"
+    }
+    $SplatParams = @{}
+    $SplatParams.WhatIf = $WhatIf
+    if (Test-Path $SteamAppFolder) {
+        Write-Verbose "Removing $SteamAppFolder"
+        Remove-Item -Recurse -Path $SteamAppFolder @SplatParams
+    } else {
+        Write-Warning "Folder not found, so not deleted:`n$SteamAppFolder"
+    }
+}
+
 function Remove-ConfigFiles {
     Param(
         [array] $ConfigFilesToRemove,
-        [boolean] $WhatIf
+        [boolean] $WhatIf = $false
     )
     $SplatParams = @{}
     $SplatParams.WhatIf = $WhatIf
@@ -46,9 +80,38 @@ function Remove-ConfigFiles {
     }
 }
 
-Write-Verbose "Removing config files..."
+If ($InteractivePrompts) {
+    Write-Warning "THIS SCRIPT DELETES FILES! BE CAREFUL!"
+    $input = Read-Host -Prompt @"
+### WARNING! ###
+This script is about to delete everything in:
+$SteamVRInstallPath
+
+This script does not perform any backups, may have errors, and comes with no
+warranty. If you are not ABSOLUTELY CERTAIN you want to delete files, Press
+"Control-C" now, or close this window!
+
+Otherwise, press [Enter] to continue...
+"@
+
+if (($input.ToUpper() -eq 'Q') -or ($null -eq $input)) {
+    Write-Warning "Exiting..."
+    exit 1
+}
+}
+
+Write-Output "Removing config files..."
 Remove-ConfigFiles -ConfigFilesToRemove $FilesToRemove -WhatIf $TestMode
 
-Write-Verbose "Uninstalling SteamVR..."
+Write-Output "Uninstalling SteamVR..."
 Remove-SteamApp -SteamExePath $SteamExePath -SteamAppId $SteamVRAppId -WhatIf $TestMode
 
+Write-Output "Removing SteamVR Install folder..."
+Remove-SteamAppFolder -SteamAppFolder $SteamVRInstallPath -WhatIf $TestMode
+
+Write-Output "Installing SteamVR..."
+Add-SteamApp -SteamExePath $SteamExePath -SteamAppId $SteamVRAppId -WhatIf $TestMode
+
+If ($InteractivePrompts) {
+    Read-Host -Prompt "Press Enter to exit"
+}
