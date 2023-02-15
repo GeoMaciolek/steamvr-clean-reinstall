@@ -19,6 +19,23 @@ metered internet or have a slow connection.
 
 ### How To Run
 
+#### The Kinda-iffy Way
+
+* Open [the link here](steamvr-clean-reinstall.ps1) in a new tab
+* Select all & copy the text from the body/script of that
+* Launch "PowerShell ISE" (included in most versions of windows)
+  * Hit Windows
+  * Type `ISE`
+  * Click the appropriate link
+* File - New
+* Paste the script into the white window on top
+* **Read Everything, Don't Run Strange Scripts From The Internet!**
+* (If prompted to save, do not save)
+* Hit F5 to run
+* Observe output in the "Terminal" view at the bottom, and respond as needed.
+
+#### The Proper Way
+
 TODO: Add details on how to execute a powershell script!
 
 * [Download steamvr-clean-reinstall.ps1](https://github.com/GeoMaciolek/steamvr-clean-reinstall/releases/download/0.1/steamvr-clean-reinstall.ps1)
