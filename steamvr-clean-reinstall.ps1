@@ -16,26 +16,26 @@
 
 function Remove-SteamApp {
     Param(
-        $SteamExePath = $SteamExePath,
-        $SteamVRAppId = $SteamVRAppId,
-        [boolean] $WhatIfSetting = $TestMode # "Inheret" testmode from main script
+        [string] $SteamExePath,
+        [int32] $SteamAppId,
+        [boolean] $WhatIf
     )
     $SplatParams = @{}
-    $SplatParams.WhatIf = $WhatIfSetting
+    $SplatParams.WhatIf = $WhatIf
     # Launch steam.exe, telling it to uninstall the requested app
-    Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://uninstall/$SteamVRAppId" @SplatParams
+    Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://uninstall/$SteamAppId" @SplatParams
 }
 
 function Remove-ConfigFiles {
     Param(
-        $ConfigFilesToRemove = $FilesToRemove,
-        [boolean] $WhatIfSetting = $TestMode # "Inheret" testmode from main script
+        [array] $ConfigFilesToRemove,
+        [boolean] $WhatIf
     )
     $SplatParams = @{}
-    $SplatParams.WhatIf = $WhatIfSetting
+    $SplatParams.WhatIf = $WhatIf
     ForEach ($fileToRemove in $ConfigFilesToRemove) {
         if (Test-Path $fileToRemove) {
-            If ($WhatIfSetting) {
+            If ($WhatIf) {
                 Write-Output "We would be removing $file"
             }
             Write-Verbose "Removing $fileToRemove"
@@ -45,8 +45,10 @@ function Remove-ConfigFiles {
         }
     }
 }
-# if $()
-# ForEach ($file in $FilesToRemove) {
-#     Write-Output "remove $file lol"
-#     write-output "----"
-# }
+
+Write-Verbose "Removing config files..."
+Remove-ConfigFiles -ConfigFilesToRemove $FilesToRemove -WhatIf $TestMode
+
+Write-Verbose "Uninstalling SteamVR..."
+Remove-SteamApp -SteamExePath $SteamExePath -SteamAppId $SteamVRAppId -WhatIf $TestMode
+
