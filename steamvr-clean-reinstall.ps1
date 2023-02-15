@@ -40,10 +40,13 @@ function Remove-SteamApp {
         [int32] $SteamAppId,
         [boolean] $WhatIf
     )
-    $SplatParams = @{}
-    $SplatParams.WhatIf = $WhatIf
-    # Launch steam.exe, telling it to uninstall the requested app
-    Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://uninstall/$SteamAppId" @SplatParams
+    if ($WhatIf) {
+        Write-Output "WHAT-IF: We would run the following:"
+        Write-Output "Start-Process -FilePath $SteamExePath -Wait -ArgumentList `"steam://uninstall/$SteamAppId`""
+    } else {
+        # Launch steam.exe, telling it to uninstall the requested app
+        Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://uninstall/$SteamAppId"
+    }
 }
 
 function Add-SteamApp {
@@ -52,10 +55,13 @@ function Add-SteamApp {
         [int32] $SteamAppId,
         [boolean] $WhatIf = $false
     )
-    $SplatParams = @{}
-    $SplatParams.WhatIf = $WhatIf
-    # Launch steam.exe, telling it to uninstall the requested app
-    Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://install/$SteamAppId" @SplatParams
+    if ($WhatIf) {
+        Write-Output "WHAT-IF: We would run the following:"
+        Write-Output "Start-Process -FilePath $SteamExePath -Wait -ArgumentList `"steam://install/$SteamAppId`""
+    } else {
+        # Launch steam.exe, telling it to install the requested app
+        Start-Process -FilePath $SteamExePath -Wait -ArgumentList "steam://install/$SteamAppId"
+    }
 }
 
 function Remove-SteamAppFolder {
@@ -110,10 +116,10 @@ warranty. If you are not ABSOLUTELY CERTAIN you want to delete files, Press
 Otherwise, press [Enter] to continue...
 "@
 
-if (($input.ToUpper() -eq 'Q') -or ($null -eq $input)) {
-    Write-Warning "Exiting..."
-    exit 1
-}
+    if (($null -eq $input) -or ('q' -ieq $input)) {
+        Write-Warning "Exiting..."
+        exit 1
+    }
 }
 
 Write-Output "Removing config files..."

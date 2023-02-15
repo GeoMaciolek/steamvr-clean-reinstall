@@ -1,4 +1,4 @@
-# SteamVR Clean Reinstall
+﻿# SteamVR Clean Reinstall
 
 ## Overview
 
@@ -61,6 +61,8 @@ TODO: Add details on how to execute a powershell script!
   * This should be OK for SteamVR, but not for other games/apps if needed
   * Could read `InstallLocation` from `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820`
 
-## Credits
+## Credits & Thanks
 
 * [Alma's SteamVR clean Reinstall guide](https://steamcommunity.com/app/250820/discussions/2/1640917625015598552/)
+* `@DenTechs` on the ["Virtual Desktop" Discord](https://discord.com/invite/mHtg4VfDfV)
+  * Testing & noticing Windows Powershell compatibility issues
