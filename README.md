@@ -21,7 +21,7 @@ metered internet or have a slow connection.
 
 TODO: Add details on how to execute a powershell script!
 
-* Download [steamvr-clean-reinstall.ps1](https://raw.githubusercontent.com/GeoMaciolek/steamvr-clean-reinstall/main/steamvr-clean-reinstall.ps1) (Right-click, "Save link as...")
+* <a id="raw-url" href="https://raw.githubusercontent.com/GeoMaciolek/steamvr-clean-reinstall/main/steamvr-clean-reinstall.ps1" download>Download steamvr-clean-reinstall.ps1</a>
 * Run the above
 
 ## How It Works
@@ -60,6 +60,7 @@ TODO: Add details on how to execute a powershell script!
 * Makes certain assumptions about install folders
   * This should be OK for SteamVR, but not for other games/apps if needed
   * Could read `InstallLocation` from `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820`
+  * Could also use the uninstall path from the same!
 
 ## Credits & Thanks
 
