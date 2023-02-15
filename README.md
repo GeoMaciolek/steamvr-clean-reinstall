@@ -1,4 +1,4 @@
-﻿# SteamVR Clean Reinstall
+# SteamVR Clean Reinstall
 
 ## Overview
 
@@ -9,7 +9,7 @@ is largely untested, and should be used with caution.
 
 ### Warnings
 
-This script WILL delete files on your conputer, and may do so in unexpected
+This script WILL delete files on your computer, and may do so in unexpected
 ways, especially if you make any configuration changes, or if you have Steam
 or SteamVR installed in unusual locations. Use this at your own risk!
 
@@ -21,7 +21,7 @@ metered internet or have a slow connection.
 
 TODO: Add details on how to execute a powershell script!
 
-* Download [steamvr-clean-reinstall.ps1](https://raw.githubusercontent.com/GeoMaciolek/steamvr-clean-reinstall/main/steamvr-clean-reinstall.ps1) (Right-click, Save as...)
+* Download [steamvr-clean-reinstall.ps1](https://raw.githubusercontent.com/GeoMaciolek/steamvr-clean-reinstall/main/steamvr-clean-reinstall.ps1) (Right-click, "Save link as...")
 * Run the above
 
 ## How It Works
@@ -55,10 +55,11 @@ TODO: Add details on how to execute a powershell script!
 #>
 ```
 
-## Issues
+## Issues & To-do
 
 * Makes certain assumptions about install folders
   * This should be OK for SteamVR, but not for other games/apps if needed
+  * Could read `InstallLocation` from `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 250820`
 
 ## Credits
 
