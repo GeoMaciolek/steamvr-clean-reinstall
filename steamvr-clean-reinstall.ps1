@@ -20,7 +20,7 @@ Param(
 	[array]
     $FilesToRemove = @(
         "$SteamPath\steamapps\common\SteamVR\resources\settings\default.vrsettings";
-        "$SteamPath\Steam\config\steamvr.vrsettings";
+        "$SteamPath\config\steamvr.vrsettings";
         "$SteamPath\config\lighthouse\lighthousedb.json"),
     [int32]
     $SteamVRAppId = 250820,
