@@ -2,9 +2,8 @@
 
 ## Overview
 
-NOT USABLE YET!
-
-This tool helps you do a clean reinstall of SteamVR
+This tool helps you do a clean reinstall of SteamVR. It is under development,
+is largely untested, and should be used with caution.
 
 ## Using the tool
 
